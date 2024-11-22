@@ -136,3 +136,19 @@ def computing_gc_content(path_to_fasta: str) -> Tuple[str, float]:
         gc_count, total_count = 0, 0
     
     return highest_gc_name, highest_gc_percentage * 100
+
+def count_point_mutations(sequence_1: str, sequence_2: str) -> int:
+    """
+    Given two strings s and t of equal length, 
+    the Hamming distance between s and t, denoted dH(s,t), 
+    is the number of corresponding symbols that differ in s and t.
+
+    Given: Two DNA strings s and t of equal length (not exceeding 1 kbp).
+    Return: The Hamming distance dH(s,t).
+    """
+    hamming_distance = 0
+    for index in range(0, len(sequence_1)):
+        if sequence_1[index] != sequence_2[index]:
+            hamming_distance += 1
+            
+    return hamming_distance
