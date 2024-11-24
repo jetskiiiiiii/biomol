@@ -55,3 +55,12 @@ def test_computing_gc_content(input, expected_output):
 ])
 def test_count_point_mutations(input, expected_output):
     assert basics.count_point_mutations(*input) == expected_output
+
+    
+# Mendel's first law
+@pytest.mark.parametrize("input, expected_output", [
+    ((2, 2, 2), 0.7833333333333333),
+    ((18, 24, 22), 0.7202380952380952)
+])
+def test_(input, expected_output):
+    assert basics.mendels_first_law(*input) == expected_output

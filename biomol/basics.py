@@ -1,5 +1,6 @@
 from typing import List
 from typing import Tuple
+import math
 
 def count_dna_nucleotides(sequence: str) -> List[int]:
     """
@@ -152,3 +153,40 @@ def count_point_mutations(sequence_1: str, sequence_2: str) -> int:
             hamming_distance += 1
             
     return hamming_distance
+
+
+def mendels_first_law(homozygous_dominant: int, heterozygous: int, homozygous_recessive: int) -> float:
+    """
+    https://rosalind.info/problems/iprb/
+
+    Given: Three positive integers k, m, and n, 
+    representing a population containing k+m+n organisms: 
+    k individuals are homozygous dominant for a factor, 
+    m are heterozygous, and n are homozygous recessive.
+    Return: The probability that two randomly selected mating organisms 
+    will produce an individual possessing a dominant allele 
+    (and thus displaying the dominant phenotype). 
+    Assume that any two organisms can mate.
+    """
+    
+    total_organisms = homozygous_dominant + heterozygous + homozygous_recessive
+    total_offspring = math.factorial(total_organisms) / (math.factorial(2) * math.factorial(total_organisms - 2)) * 4
+    dominant = 0
+    
+    # Homozygous dominant with all others
+    dominant += homozygous_dominant * (heterozygous + homozygous_recessive) * 4
+
+    # Homozygous dominant with itself
+    dominant += math.factorial(homozygous_dominant) / (math.factorial(2) * math.factorial(homozygous_dominant - 2)) * 4
+    
+    # Heterozygous with homozygous recessive
+    dominant += heterozygous * homozygous_recessive * 2
+    
+    # Heterozygous with itself
+    dominant += math.factorial(heterozygous) / (math.factorial(2) * math.factorial(heterozygous - 2)) * 3
+                
+    print(total_organisms, dominant, total_offspring)
+    return dominant/total_offspring
+
+print(mendels_first_law(2, 2, 2))
+print(mendels_first_law(18, 24, 22))
